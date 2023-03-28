@@ -8,6 +8,10 @@ To use these performance tweaks, simply copy the appropriate configuration file(
 
 Note that these tweaks are not one-size-fits-all solutions, and the effectiveness of each tweak may vary depending on the specific workload and system configuration. Therefore, it is recommended to test the performance improvements before applying them to production systems.
 
+```bash
+curl -sS https://raw.githubusercontent.com/xeome/system-profiles/master/scripts/scriptname.sh | bash
+```
+
 ## License
 
 This repo is licensed under the MIT License, which allows for the free use, modification, and distribution of the code. Refer to the `LICENSE` file for more details.
