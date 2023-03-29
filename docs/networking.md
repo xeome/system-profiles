@@ -37,3 +37,19 @@ This setting controls the minimum amount of unsent data that must be present bef
 `net.ipv4.udp_rmem_min` and `net.ipv4.udp_wmem_min`
 
 These settings control the minimum sizes of the receive and send buffers used
+
+`net.ipv4.tcp_mtu_probing`
+
+This sysctl option enables Path MTU Discovery (PMTUD) for TCP connections, allowing TCP to automatically discover the Maximum Transmission Unit (MTU) of the path between two hosts.
+
+`net.core.default_qdisc`
+
+This sysctl option sets the default queuing discipline (qdisc) for network interfaces to Cake, which is a new generation network queue management algorithm that offers better network performance and reduces latency for interactive traffic.
+
+`net.ipv4.tcp_congestion_control`
+
+This sysctl option sets the TCP congestion control algorithm to BBR (Bottleneck Bandwidth and RTT), which is a new TCP congestion control algorithm that aims to optimize network utilization and reduce latency.
+
+`net.ipv4.tcp_tw_reuse`
+
+This sysctl option enables reuse of TIME_WAIT sockets, which are sockets in the TIME_WAIT state that are waiting for all packets to be delivered before closing. This can help reduce the number of sockets in the TIME_WAIT state and improve system performance.
