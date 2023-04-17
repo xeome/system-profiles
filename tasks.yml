@@ -1,0 +1,28 @@
+---
+- name: Redis target_config
+  hosts: redis
+  tasks:
+    - name: Copy 95-networking.conf and 99-redis.conf to target and apply them
+      copy:
+        src: 'config/{{ item }}'
+        dest: '/etc/sysctl.d/'
+        mode: '0644'
+      with_items:
+        - 95-networking.conf
+        - 99-redis.conf
+    - name: Apply the config files
+      command: sysctl --system
+
+- name: Postgresql target_config
+  hosts: postgresql
+  tasks:
+    - name: Copy 95-networking.conf and 99-postgresql.conf to target and apply them
+      copy:
+        src: 'config/{{ item }}'
+        dest: '/etc/sysctl.d/'
+        mode: '0644'
+      with_items:
+        - 95-networking.conf
+        - 99-postgresql.conf
+    - name: Apply the config files
+      command: sysctl --system
