@@ -1,28 +1,158 @@
 ---
-- name: Redis target_config
-  hosts: redis
-  tasks:
-    - name: Copy 95-networking.conf and 99-redis.conf to target and apply them
-      copy:
-        src: 'config/{{ item }}'
-        dest: '/etc/sysctl.d/'
-        mode: '0644'
-      with_items:
-        - 95-networking.conf
-        - 99-redis.conf
-    - name: Apply the config files
-      command: sysctl --system
+# - name: Redis target_config
+#   hosts: redis
+#   tasks:
+#     - name: Copy 95-networking.conf and 99-redis.conf to target and apply them
+#       copy:
+#         src: 'config/{{ item }}'
+#         dest: '/etc/sysctl.d/'
+#         mode: '0644'
+#       with_items:
+#         - 95-networking.conf
+#         - 99-redis.conf
+#     - name: Apply the config files
+#       command: sysctl --system
 
-- name: Postgresql target_config
-  hosts: postgresql
+# - name: Postgresql target_config
+#   hosts: postgresql
+#   tasks:
+#     - name: Copy 95-networking.conf and 99-postgresql.conf to target and apply them
+#       copy:
+#         src: 'config/{{ item }}'
+#         dest: '/etc/sysctl.d/'
+#         mode: '0644'
+#       with_items:
+#         - 95-networking.conf
+#         - 99-postgresql.conf
+#     - name: Apply the config files
+#       command: sysctl --system
+
+- name: Desktop system packages
+  hosts: all
+
+  ### Generic terminal utilities ###
   tasks:
-    - name: Copy 95-networking.conf and 99-postgresql.conf to target and apply them
-      copy:
-        src: 'config/{{ item }}'
-        dest: '/etc/sysctl.d/'
-        mode: '0644'
-      with_items:
-        - 95-networking.conf
-        - 99-postgresql.conf
-    - name: Apply the config files
-      command: sysctl --system
+    - name: Generic terminal utilities.
+      become: no
+      command: yay -S --noconfirm --needed "{{ item }}"
+      loop:
+        - bat
+        - bat-extras
+        - fd
+        - fzf
+        - glow
+        - grc
+        - htop
+        - btop
+        - iotop
+        - less
+        - lm_sensors
+        - nano-syntax-highlighting
+        - neofetch
+        - neovim
+        - ranger
+        - ripgrep
+        - screen
+        - s-tui
+        - tmate
+        - tmux
+        - tree
+        - wget
+        - xclip
+        - xsel
+        - zsh
+        - zsh-completions
+        - git
+        - curl
+        - gping
+        - speedtest++
+        - update-grub
+        - yt-dlp
+        - yt-dlp-drop-in
+        - unrar
+        - unzip
+        - rate-mirrors
+        - p7zip
+        - nmap
+        - mullvad-vpn-cli
+      tags:
+        - cli
+
+    ### Desktop environment ###
+    - name: WM setup
+      become: no
+      command: yay -S --noconfirm --needed "{{ item }}"
+      loop:
+        - polybar
+        - rofi
+        - i3-wm
+        - lxappearance
+        - pcmanfm-qt
+        - pcmanfm
+        - betterlockscreen
+        - catppuccin-gtk-theme-mocha
+        - dunst
+        - flameshot
+        - nitrogen
+        - mate-power-manager
+      tags:
+        - wm
+
+    ### Fonts ###
+    - name: Fonts
+      become: no
+      command: yay -S --noconfirm --needed "{{ item }}"
+      loop:
+        - ttf-iosevka-nerd
+        - ttf-jetbrains-mono
+        - ttf-jetbrains-mono-nerd
+      tags:
+        - fonts
+
+    ### Generic GUI ###
+    - name: Generic GUI
+      become: no
+      command: yay -S --noconfirm --needed "{{ item }}"
+      loop:
+        - qbittorrent
+        - qdirstat
+        - uget
+        - gimp
+        - gimp-plugin-gmic
+        - thorium-browser-bin
+        - speedcrunch
+        - nextcloud-client
+        - mpv
+        - handbrake
+        - grub-customizer
+        - fileroller
+        - feh
+        - evince
+        - boomer-git
+        - bleachbit
+        - anydesk-bin
+        - gnuplot
+        - obsidian
+      tags:
+        - gui
+
+    ### System utilities ###
+    - name: System utilities
+      become: no
+      command: yay -S --noconfirm --needed "{{ item }}"
+      loop:
+        - timeshift-bin
+        - zerotier-one
+        - tlp
+        - tlpui
+        - rt-tests
+        - stress
+        - modprobed-db
+        - jitterdebugger-bin
+        - gparted
+        - ananicy-cpp-git
+        - cachyos-ananicy-rules
+        - ccache
+
+      tags:
+        - system
